@@ -5,13 +5,28 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/addons/p5.sound.min.js"></script>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <meta charset="utf-8" />
-
+    <title>Genetic Algorithms</title>
   </head>
   <body>
+    <div> <!--v2-->
+      <label for="target">Target phrase (letters and spaces only, no more than 35 characters): </label>
+      <input type="text" id="target" name="target">
+      <br><br>
+      <label for="popSize">Elements in each generation: </label>
+      <input type="text" id="popSize" name="popSize">
+      <br><br>
+      <label for="mRate">Mutation rate (must be between zero and a hundred (percent)): </label>
+      <input type="text" id="mRate" name="mRate">
+      <br><br>
+      <button id="runAlg" type="button">Run Genetic Algorithm</button>
+      <br>
+    </div> <!--v2-->
     <div id="elems"> </div>
     <p id="numGens"> </p>
     <p id="parameters"> </p>
     <p id="solution"> </p>
+    <div id="topCont"></div>
+    <div id="giveUp"></div>
     <script src="script.js"></script>
   </body>
 </html>

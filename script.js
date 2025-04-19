@@ -1,4 +1,49 @@
 // python -m http.server
+
+// v2
+
+let target;
+let popSize;
+let mutationRate;
+let l;
+const chars = ["a","b","c","d","e",
+"f","g","h","i","j","k","l",
+"m","n","o","p","q","r","s","t",
+"u","v","w","x","y","z"," "];
+const elemDelay = .01;
+let bool = false;
+
+document.getElementById("runAlg").addEventListener("click",setUp);
+
+function setUp() {
+    document.getElementById("elems").innerHTML = "";
+    document.getElementById("parameters").innerHTML = "";
+    document.getElementById("solution").innerHTML = "";
+    bool = false;
+    target = document.getElementById("target").value.toLowerCase();
+    if (typeof target!='string'){target="to be or not to be"}
+    for (let char of target) {
+        if(!chars.includes(char)) {target=target.replace(char,"")}
+    }
+    if (target.length>35) {target=target.slice(0,35)}
+    popSize = document.getElementById("popSize").value*1;
+    if ((!Number.isInteger(popSize))||popSize<2) {popSize=200}
+    mutationRate = document.getElementById("mRate").value/100;
+    if (Number.isNaN(mutationRate)){mutationRate=.01}
+    if (mutationRate>1) {mutationRate=1}
+    if (mutationRate<0) {mutationRate=0}
+    l = target.length;
+    let topButton = `<button id="top" type="button">Jump to top</button>`
+    document.getElementById("topCont").innerHTML=topButton;
+    document.getElementById("top").addEventListener("click",goUp);
+    run();
+}
+
+function goUp() {window.scrollTo(0,0);}
+// v2
+
+/* v1
+
 const target = "to be or not to be";
 const popSize = 200;
 const mutationRate = .01;
@@ -11,6 +56,8 @@ const elemDelay = .005;
 let bool = false;
 
 window.addEventListener("load", run);
+
+v1 */
 
 async function run() {
     let params = "";
@@ -28,7 +75,7 @@ async function run() {
     let curGen = document.createElement("p");
     curGen.id = "cur"+gens;
     document.getElementById("elems").appendChild(curGen);
-    for (elem of population) {
+    for (let elem of population) {
         popStr+=elem+"<br>";
         document.getElementById("cur"+gens).innerHTML=popStr
         window.scrollTo(0, document.body.scrollHeight);
@@ -45,7 +92,7 @@ async function run() {
         let curGen = document.createElement("p");
         curGen.id = "cur"+gens;
         document.getElementById("elems").appendChild(curGen);
-        for (elem of population) {
+        for (let elem of population) {
             popStr+=elem+"<br>";
             document.getElementById("cur"+gens).innerHTML=popStr
             window.scrollTo(0, document.body.scrollHeight);
@@ -98,6 +145,7 @@ function getWeights(matesArr) {
             weightedPool.push(matesArr[0][i]);
         }
     }
+    if (weightedPool.length==0) {return matesArr[0]}
     return weightedPool;
 }
 
